@@ -8,6 +8,12 @@
 
 ---
 
+## 📸 界面预览
+
+![Ninetail-Fox Memory Pro UI](docs/assets/ui-screenshot.png)
+
+---
+
 ## 💡 为什么需要 Ninetail-Fox？
 
 在大模型并发时代，上下文（Context）就是生产力。
