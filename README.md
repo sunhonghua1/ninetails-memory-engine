@@ -117,6 +117,16 @@ Pro is a private repo. One-time purchase — no subscriptions, no token fees.
 
 3. **Get your build**: After verification, you'll receive a zero-config installer for your OS + access to the Pro user group.
 
+### 🌍 International Users (Crypto Payment)
+
+For users outside of China, you can purchase via Solana (USDC or SOL equivalent to ~$8.5 USD).
+
+1. **Send Payment:** Transfer to the following Solana wallet address:
+   `6qTiKeVUrHq46Yi8KRbnfCpbe9TSAUH5oTaXNGG5c3n9`
+2. **Get Machine ID:** Run the application to get your 16-character Machine ID.
+3. **Activate:** Send an email to `howardsun199@gmail.com` or contact me on Telegram `@sun784991419` with your **Transaction Hash (TxID)** and **Machine ID**.
+4. **Delivery:** I will reply with your unique Offline Activation Key and an invite to the Pro user group.
+
 ---
 
 ## 📋 Open Source vs Pro — Who Should Use What?
