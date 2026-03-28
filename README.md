@@ -119,7 +119,7 @@ Pro is a private repo. One-time purchase — no subscriptions, no token fees.
 
 ### 🌍 International Users (Crypto Payment)
 
-For users outside of China, you can purchase via Solana (USDC or SOL equivalent to ~$8.5 USD).
+For users outside of China, you can purchase via Solana (USDC or SOL equivalent to ~$15 USD).
 
 1. **Send Payment:** Transfer to the following Solana wallet address:
    `6qTiKeVUrHq46Yi8KRbnfCpbe9TSAUH5oTaXNGG5c3n9`
