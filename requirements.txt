@@ -1,0 +1,4 @@
+# Python Dependencies for Ninetail-Fox Memory Engine
+# Install via: pip install -r requirements.txt
+
+mcp>=1.0.0

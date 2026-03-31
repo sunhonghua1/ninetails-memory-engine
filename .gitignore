@@ -1,7 +1,38 @@
-.DS_Store
-*.dmg
-*.bak
-.claude/
-mcp_output.txt
+# Dependencies & secrets
+.venv/
 __pycache__/
 *.pyc
+.data/
+*.sqlite
+*.sqlite-journal
+.DS_Store
+
+# Local configs with real API keys
+.ninetail-fox/
+embedding_config.local.json
+
+# Build artifacts
+*.dmg
+*.zip
+*.exe
+*.app
+dist/
+build/
+
+# IDE / Editor
+.cursor/
+.claude/
+.cursorrules
+*.log
+mcp_output.txt
+
+# Test files
+test_*.py
+functional_test.py
+inject.py
+
+# Large binaries
+66140dd0-*
+Windsurf-*.dmg
+ninetail-fox-memory-*.zip
+NinetailFoxMemory_*.dmg

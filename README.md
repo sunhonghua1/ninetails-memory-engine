@@ -1,146 +1,154 @@
+# Ninetail-Fox Memory Engine
 
-<p align="center">
-  <img src="docs/assets/logo-render.png" alt="Ninetail-Fox Memory" width="400">
-</p>
+> **The AI Memory Exoskeleton for Indie Hackers**
+> 100% local. Zero cloud dependency. Your context stays on your machine.
 
-<p align="center">
-  <strong>The AI Memory Exoskeleton for Indie Hackers</strong><br>
-  100% local. Zero cloud dependency. Your context stays on your machine.
-</p>
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support-yellow?style=for-the-badge&logo=buy-me-a-coffee)](https://buymeacoffee.com/sunhonghua1)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
 ---
 
-# 🦊 Ninetail-Fox Memory
+## 🦊 What is Ninetail-Fox?
 
-Your AI forgets everything between conversations. Ninetail-Fox fixes that — **entirely on your local machine**.
+Ninetail-Fox is an open-source **persistent memory engine** for AI coding assistants. It allows **Cursor, Claude Desktop, Windsurf**, and any MCP-compatible client to share a unified, local SQLite memory vault.
 
-All memory is stored in a local SQLite database. No cloud API calls for storage. No subscriptions. No data leaving your laptop. Period.
+**Your AI finally remembers everything you've ever told it — across sessions, across IDEs, forever.**
 
----
+### ✨ Key Features
 
-## 📸 Interface Preview
-
-<p align="center">
-  <img src="docs/assets/ui-screenshot.png" alt="Ninetail-Fox Memory Pro UI" width="800">
-</p>
-
----
-
-## 💡 Why Ninetail-Fox?
-
-**The problem**: You teach Claude something at 2pm. By 3pm, in a new conversation, it's forgotten. You switch to Cursor — blank slate again. Your context, preferences, and project knowledge evaporate every single session.
-
-**Existing solutions** (Supermemory, Mem0, etc.) route your data through cloud servers and charge monthly subscriptions. Your code snippets, architectural decisions, and personal preferences become someone else's training data.
-
-**Ninetail-Fox** takes a different approach:
-
-- **100% Local Storage**: Everything lives in a SQLite file on your machine. Not "local-first with cloud sync" — actually local-only.
-- **Cross-Agent Sync via MCP**: Write a memory in Claude Desktop, read it in Cursor. Same local SQLite, accessed through the standard Model Context Protocol.
-- **One-Time Purchase**: No monthly token fees. No per-query pricing. Buy once, own forever.
+| Feature | Description |
+|---|---|
+| 🧠 **Persistent Memory** | Every conversation is stored in a local SQLite vault |
+| 🔍 **Hybrid Search** | BM25 keyword + Vector semantic search (4.9x compression) |
+| 🌍 **Cross-Lingual** | Query in English, retrieve Chinese docs — and vice versa |
+| 🔄 **Cross-IDE Sync** | Cursor ↔ Claude Desktop ↔ Windsurf share the same brain |
+| 🔒 **100% Local** | Your data never leaves your machine. Period. |
+| 👤 **User Profiles** | Auto-extracted facts about users for personalized context |
+| ⚡ **Multi-Provider Embedding** | Google Gemini, Jina AI, DashScope — auto-fallback |
 
 ---
 
-## 🔌 Supported Integrations
+## 🚀 Quick Start
 
-### ✅ Claude Desktop — Battle-Tested (My Daily Driver)
+### 1. Clone & Install
 
-I use Claude Desktop with Ninetail-Fox every single day. The MCP integration for profile sync, fact extraction, and context injection has been through months of real-world usage. **This is where Ninetail-Fox is rock solid.**
+```bash
+git clone https://github.com/sunhonghua1/ninetails-memory-engine.git
+cd ninetails-memory-engine
 
-Verified capabilities:
-- `add_user_fact` / `get_user_profile` — read/write user traits across sessions
-- `extract_facts` — automatic fact extraction from conversation text
-- `add_memory` / `search_memory` — long-term memory storage and retrieval (requires embedding API)
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
 
-### 🧪 Cursor — Beta (Community-Driven)
+### 2. Configure API Keys
 
-The underlying MCP architecture is fully wired up and **end-to-end verified**: Cursor can read profiles written by Claude Desktop, and vice versa. The SQLite bridge works.
+Copy the template and add your own API keys:
 
-However, I don't use Cursor as my primary editor, so edge cases in Cursor-specific workflows (inline completions, multi-file context, composer mode) haven't been stress-tested yet.
+```bash
+cp engine/embedding_config.json engine/embedding_config.local.json
+```
 
-**If you're a heavy Cursor user, I'd genuinely love your feedback or PRs to help bulletproof this integration.**
+Edit `engine/embedding_config.local.json` with your real keys:
+- **Google Gemini**: [Get free API key](https://aistudio.google.com/apikey)
+- **Jina AI**: [Get free API key](https://jina.ai/embeddings/)
 
-### 🔜 Coming Soon
+### 3. Connect to Cursor
 
-- **Windsurf / VS Code** — MCP support planned
-- **Full vector memory search** — Currently requires an OpenAI-compatible embedding API. Working on built-in local embedding support to eliminate this dependency entirely.
+Add this to your `.cursor/mcp.json`:
 
----
+```json
+{
+  "mcpServers": {
+    "ninetail-fox-memory": {
+      "command": "/path/to/your/.venv/bin/python",
+      "args": ["/path/to/engine/mcp_memory_server.py"],
+      "env": {
+        "MEMORY_STORAGE_PATH": "/Users/YOU/.ninetail-fox/memory.sqlite"
+      }
+    }
+  }
+}
+```
 
-## 🛠️ Under the Hood
+### 4. Connect to Claude Desktop
 
-<p align="center">
-  <img src="docs/assets/topology.png" alt="System Topology" width="800">
-</p>
+Add the same config block to `~/Library/Application Support/Claude/claude_desktop_config.json`.
 
-The retrieval pipeline: **Bi-Encoder** (semantic rough filter) + **BM25** (keyword supplement) + **Cross-Encoder** (precision re-ranking) + **Time Decay** (recency weighting).
-
-Profile sync (user traits) works out of the box with zero external dependencies. Full semantic memory search requires an embedding provider — OpenAI-compatible API or local model.
-
----
-
-## 👑 V4.5 Pro — What You Get
-
-The open-source edition gives you the basic framework. Pro is what I actually run daily:
-
-| Feature | Open Source | Pro (V4.5) |
-|---------|-----------|-------------|
-| **Quantized Vectors** | Basic storage | **Google TurboQuant (Int8)** — 19.8x compression |
-| **Memory Footprint** | Grows with usage | **Optimized LRU eviction** — constant low RAM |
-| **Noise Filtering** | Simple keyword | **LittleFox Risk Algorithm** — thought-pruning |
-| **Distribution** | Python source | **Native pre-built binaries** (Win/Mac/Linux) |
-| **Backup** | Manual | **One-click reset & automated backup scripts** |
-
-> **TurboQuant (Int8)**: Scalar quantization on 1536-dim vectors reduces memory fragmentation by 80%, enabling practically unlimited conversation memory under minimal RAM.
+**That's it.** Both IDEs now share the same memory vault. 🎉
 
 ---
 
-## 🚀 Get Pro (Early Bird)
+## 🏗️ Architecture
 
-Pro is a private repo. One-time purchase — no subscriptions, no token fees.
-
-- ~~Regular price: ¥99~~
-- **🔥 First 100 early birds: ¥59** (includes free V5.0 upgrade)
-
-### How to purchase:
-
-1. **Pay via WeChat**: Scan the QR code below.
-
-<p align="center">
-  <img src="docs/assets/wechat-pay.png" alt="WeChat Pay" width="200">
-</p>
-
-2. **Add me on WeChat**: Scan below, note "**Ninetail Pro**", send payment screenshot.
-
-<p align="center">
-  <img src="docs/assets/wechat-contact.png" alt="WeChat Contact" width="200">
-</p>
-
-3. **Get your build**: After verification, you'll receive a zero-config installer for your OS + access to the Pro user group.
-
----
-
-## 📋 Open Source vs Pro — Who Should Use What?
-
-**Open Source (for experienced Python developers)**:
-The repo provides the core architecture. You'll need to set up dependencies, configure environment variables, and debug compatibility issues yourself. This is the raw engine — powerful, but assembly required.
-
-**Pro (for everyone else)**:
-Pre-built native binary. Double-click to install. No terminal commands, no dependency hell, no Python version conflicts. Just works. Includes priority support via the Pro user group.
-
----
-
-## 🏗️ How It Compares
-
-| | Ninetail-Fox | Supermemory | Mem0 |
-|---|---|---|---|
-| **Data Location** | 100% local SQLite | Cloud (their servers) | Cloud-default (local option requires Docker+PG+Qdrant) |
-| **Pricing** | One-time ¥59-99 | $0-$399/mo subscription | Free tier + paid |
-| **Privacy** | Your data never leaves your machine | Data processed on their infrastructure | Cloud-default |
-| **Setup Complexity** | Single binary (Pro) | npx one-liner | Docker compose stack |
-| **Offline Support** | Full (profile sync) | No | Partial |
+```
+┌─────────────────────────────────────────────┐
+│           MCP Protocol (stdio)              │
+├───────────┬───────────┬─────────────────────┤
+│  Cursor   │  Claude   │  Windsurf / Others  │
+└─────┬─────┴─────┬─────┴──────────┬──────────┘
+      │           │                │
+      ▼           ▼                ▼
+┌─────────────────────────────────────────────┐
+│       mcp_memory_server.py (MCP Host)       │
+├─────────────────────────────────────────────┤
+│  Tools: search_memory, add_memory,          │
+│         get_user_profile, list_users,       │
+│         add_user_fact, extract_facts        │
+└──────────────────┬──────────────────────────┘
+                   │
+      ┌────────────┼────────────┐
+      ▼            ▼            ▼
+┌──────────┐ ┌──────────┐ ┌──────────────┐
+│ Memory   │ │ Profile  │ │  Embedding   │
+│ Core     │ │ Manager  │ │  Provider    │
+│ (v4.5)   │ │ (SQLite) │ │  (Multi-API) │
+└──────────┘ └──────────┘ └──────────────┘
+      │            │
+      ▼            ▼
+   ~/.ninetail-fox/
+   ├── conversations.sqlite   (memory vault)
+   ├── profiles.sqlite        (user facts)
+   └── vector_cache.sqlite    (embedding cache)
+```
 
 ---
 
-<p align="center">
-  <sub>Ninetail-Fox Memory Pro v4.5 · Built for the future of AI Agents · © 2026 Sun Hua</sub>
-</p>
+## 📂 Engine Files
+
+| File | Purpose |
+|---|---|
+| `mcp_memory_server.py` | MCP server — connects to Cursor/Claude/Windsurf |
+| `openclaw_memory_v4.py` | Core memory engine — hybrid BM25+Vector search |
+| `embedding_provider.py` | Multi-provider embedding (Google/Jina/DashScope) |
+| `user_profile_manager.py` | SQLite-based user fact storage |
+| `fact_extractor.py` | Auto-extract structured facts from conversations |
+| `embedding_config.json` | API key configuration template |
+
+---
+
+## 🎬 Live Demo
+
+Watch the engine in action — same memory vault, two different AI clients:
+
+**Cursor** asks: *"How is our system approval process designed?"*
+→ Engine returns the exact dual-gate architecture with VETO rules.
+
+**Claude Desktop** asks: *"Search the vault for the VETO rule."*
+→ Same results, retrieved from the same local SQLite vault. Seamless.
+
+---
+
+## ☕ Support This Project
+
+If Ninetail-Fox saves you time and makes your AI workflow better, consider buying me a coffee:
+
+<a href="https://buymeacoffee.com/sunhonghua1">
+  <img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=sunhonghua1&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" />
+</a>
+
+---
+
+## 📄 License
+
+MIT License — Use it, fork it, build on it. Just remember where the fox came from. 🦊

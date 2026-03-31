@@ -1,0 +1,20 @@
+{
+    "primary": "google",
+    "providers": {
+        "google": {
+            "model": "gemini-embedding-001",
+            "dimensions": 768,
+            "api_key": "YOUR_GOOGLE_API_KEY_HERE"
+        },
+        "jina": {
+            "model": "jina-embeddings-v3",
+            "dimensions": 1024,
+            "api_key": "YOUR_JINA_API_KEY_HERE"
+        },
+        "dashscope": {
+            "model": "text-embedding-v4",
+            "dimensions": 1024,
+            "api_key": "YOUR_DASHSCOPE_API_KEY_HERE"
+        }
+    }
+}
