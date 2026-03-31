@@ -146,7 +146,7 @@ If Ninetail-Fox saves you time and makes your AI workflow better, consider buyin
 ### 💳 WeChat (微信赞赏)
 
 <p align="center">
-  <img src="docs/assets/wechat-reward.png" alt="WeChat Reward QR Code" width="300">
+  <img src="docs/assets/wechat-pay.png" alt="WeChat Reward QR Code" width="300">
 </p>
 
 ### 🪙 Solana (SOL)
