@@ -143,9 +143,17 @@ Watch the engine in action — same memory vault, two different AI clients:
 
 If Ninetail-Fox saves you time and makes your AI workflow better, consider buying me a coffee:
 
-<a href="https://buymeacoffee.com/sunhonghua1">
-  <img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=sunhonghua1&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" />
-</a>
+### 💳 WeChat (微信赞赏)
+
+<p align="center">
+  <img src="docs/assets/wechat-reward.png" alt="WeChat Reward QR Code" width="300">
+</p>
+
+### 🪙 Solana (SOL)
+
+```
+6qTiKeVUrHq46Yi8KRbnfCpbe9TSAUH5oTaXNGG5c3n9
+```
 
 ---
 
